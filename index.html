@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATSwins — AI-Driven Sports Intelligence</title>
+    <meta
+      name="description"
+      content="ATSwins uses AI models and simulation engines to find mathematical edges in sports markets. Fair line projections across NBA, MLB, NHL, NCAAB, and more."
+    />
+    <meta
+      property="og:title"
+      content="ATSwins — AI-Driven Sports Intelligence"
+    />
+    <meta
+      property="og:description"
+      content="AI-powered fair line projections, simulation engines, and market analysis for serious sports traders."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://atswins-landing.vercel.app/" />
+    <link rel="canonical" href="https://atswins-landing.vercel.app/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ATSwins",
+        "applicationCategory": "SportsApplication",
+        "operatingSystem": "Web",
+        "description": "AI-driven sports intelligence platform that generates fair line projections and simulation-based market analysis for serious sports traders.",
+        "url": "https://atswins.ai",
+        "offers": {
+          "@type": "Offer",
+          "description": "Subscription-based access to AI sports projections and market analysis"
+        }
+      }
+    </script>
+    <style>
+      :root {
+        --bg: #0a0a0f;
+        --surface: #12121a;
+        --border: #1e1e2e;
+        --text: #e4e4ec;
+        --muted: #8888a0;
+        --accent: #6c5ce7;
+        --accent-glow: rgba(108, 92, 231, 0.25);
+        --green: #00d68f;
+        --red: #ff6b6b;
+        --radius: 12px;
+        --max-w: 880px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Navigation ── */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        max-width: var(--max-w);
+        margin: 0 auto;
+      }
+      nav .logo {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+      nav .logo span {
+        color: var(--accent);
+      }
+      nav a.cta-nav {
+        background: var(--accent);
+        color: #fff;
+        padding: 8px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: background 0.2s;
+      }
+      nav a.cta-nav:hover {
+        background: #7c6ef0;
+      }
+
+      /* ── Hero ── */
+      .hero {
+        text-align: center;
+        padding: 60px 24px 40px;
+        max-width: var(--max-w);
+        margin: 0 auto;
+      }
+      .hero .badge {
+        display: inline-block;
+        background: var(--accent-glow);
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin-bottom: 24px;
+      }
+      .hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+      .hero h1 span {
+        color: var(--accent);
+      }
+      .hero p.subtitle {
+        font-size: 1.2rem;
+        color: var(--muted);
+        max-width: 600px;
+        margin: 0 auto 32px;
+      }
+      .hero .cta-group {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero .btn-primary {
+        background: var(--accent);
+        color: #fff;
+        padding: 14px 32px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.05rem;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .hero .btn-primary:hover {
+        background: #7c6ef0;
+        transform: translateY(-1px);
+      }
+      .hero .btn-secondary {
+        background: var(--surface);
+        color: var(--text);
+        padding: 14px 32px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.05rem;
+        border: 1px solid var(--border);
+        transition: border-color 0.2s;
+      }
+      .hero .btn-secondary:hover {
+        border-color: var(--accent);
+      }
+
+      /* ── Stats Bar ── */
+      .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+        padding: 20px 24px 40px;
+        max-width: var(--max-w);
+        margin: 0 auto;
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat .number {
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--green);
+      }
+      .stat .label {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+      .stat .number.red {
+        color: var(--red);
+      }
+
+      /* ── Sections ── */
+      section {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        padding: 40px 24px;
+      }
+      section h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        margin-bottom: 20px;
+      }
+      section h2 span {
+        color: var(--accent);
+      }
+      section p {
+        color: var(--muted);
+        margin-bottom: 16px;
+        font-size: 1.05rem;
+      }
+
+      /* ── Feature Grid ── */
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-top: 24px;
+      }
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+      }
+      .feature-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+      }
+      .feature-card p {
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin: 0;
+      }
+      .feature-card .icon {
+        font-size: 1.6rem;
+        margin-bottom: 12px;
+      }
+
+      /* ── How It Works ── */
+      .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin-top: 24px;
+      }
+      .step {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .step-num {
+        background: var(--accent);
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+      .step-body h4 {
+        margin-bottom: 4px;
+      }
+      .step-body p {
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin: 0;
+      }
+
+      /* ── Sport Coverage ── */
+      .sport-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 20px;
+      }
+      .sport-tag {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      /* ── Video Section ── */
+      .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        margin-top: 24px;
+      }
+      .video-wrapper video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+
+      /* ── Image Placeholders ── */
+      .image-showcase {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-top: 24px;
+      }
+      .image-showcase img {
+        width: 100%;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+      }
+      @media (max-width: 600px) {
+        .image-showcase {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ── CTA Section ── */
+      .cta-section {
+        text-align: center;
+        padding: 60px 24px;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .cta-section h2 {
+        margin-bottom: 12px;
+      }
+      .cta-section p {
+        color: var(--muted);
+        margin-bottom: 28px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .cta-section .btn-primary {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 16px 40px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      /* ── Footer ── */
+      footer {
+        text-align: center;
+        padding: 32px 24px 40px;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        border: none;
+        border-top: 1px solid var(--border);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="logo">ATS<span>wins</span></div>
+      <a class="cta-nav" href="https://atswins.ai">Open Platform →</a>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="badge">v2.0 Engine Live</div>
+      <h1>AI That Finds <span>Mathematical Edges</span> in Sports Markets</h1>
+      <p class="subtitle">
+        ATSwins runs thousands of simulations every day to surface mispriced
+        lines, compare fair value against sportsbook odds, and give serious
+        traders an information advantage — without the handicapper noise.
+      </p>
+      <div class="cta-group">
+        <a class="btn-primary" href="https://atswins.ai">Try ATSwins →</a>
+        <a class="btn-secondary" href="#how-it-works">How It Works ↓</a>
+      </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="number">235–151</div>
+        <div class="label">Simulator — Run Lines (30d)</div>
+      </div>
+      <div class="stat">
+        <div class="number">393–317</div>
+        <div class="label">AI Projections — Run Lines (30d)</div>
+      </div>
+      <div class="stat">
+        <div class="number">NBA · MLB · NHL · NCAAB</div>
+        <div class="label">Live Coverage</div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <!-- WHAT WE DO -->
+    <section>
+      <h2>What <span>ATSwins</span> Does</h2>
+      <p>
+        Most sports information sites sell opinions. ATSwins sells data. Our
+        platform generates independent fair lines for every game — what the
+        market <em>should</em>
+        be — and compares them against real sportsbook odds in real time. When
+        there's a gap between fair value and the posted number, that gap is
+        information you can act on.
+      </p>
+      <p>
+        We don't publish "picks" or "locks." We publish projections, closing
+        line value analyses, simulation outputs, and transparent performance
+        records. Every model, every market, every day — win or lose, it's all
+        there. You make the decisions. We provide the intelligence.
+      </p>
+
+      <div class="features">
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Fair Line Projections</h3>
+          <p>
+            Our AI models generate independent fair lines for every game across
+            NBA, MLB, NHL, and NCAAB. Compare them directly against sportsbook
+            odds to spot value instantly.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔄</div>
+          <h3>Simulation Engine</h3>
+          <p>
+            Thousands of Monte Carlo simulations per game, factoring in
+            injuries, team form, standings, rest days, and implied probability.
+            Not one opinion — thousands of data-driven outcomes.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📈</div>
+          <h3>Closing Line Value</h3>
+          <p>
+            Track how our opening fair lines move against Pinnacle's closing
+            lines. CLV is the gold standard for measuring edge — and we publish
+            ours publicly.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔍</div>
+          <h3>Oddsmaker Tool</h3>
+          <p>
+            See every game side-by-side: the ATSwins fair line, the Pinnacle
+            open, the close, and the actual game result. Transparency baked into
+            the product.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🏀</div>
+          <h3>Player Props</h3>
+          <p>
+            Projected player outcomes and simulated stat lines. Compare our
+            projections against prop market numbers to identify discrepancies
+            the crowd misses.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📋</div>
+          <h3>Public Betting Splits</h3>
+          <p>
+            See where the public money is going — and where the sharp action is.
+            Combine market sentiment with our AI projections for a complete
+            picture.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works">
+      <h2>How It <span>Works</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h4>AI Generates Fair Lines</h4>
+            <p>
+              Before every game, our models ingest team data, injuries, form,
+              venue, travel, and market context — then output an independent
+              fair line for each market.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h4>Thousands of Simulations Run</h4>
+            <p>
+              The simulation engine runs every game thousands of times,
+              producing score distributions, win probabilities, and expected
+              value surfaces across spread, moneyline, and total markets.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h4>Edges Are Surfaced</h4>
+            <p>
+              Our system compares fair lines and simulation outputs against live
+              sportsbook odds. When a meaningful gap exists, it's highlighted —
+              no handicapper commentary, just the numbers.
+            </p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <h4>Results Are Tracked Publicly</h4>
+            <p>
+              Every projection, every market, every day is tracked and
+              displayed. No cherry-picking, no hidden losses. Our performance
+              page is updated daily so you can verify the edge yourself.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPORTS COVERAGE -->
+    <section>
+      <h2>Sports <span>Coverage</span></h2>
+      <p>
+        ATSwins covers the major North American sports markets with new leagues
+        and sports added regularly. Our models are sport-specific — baseball
+        projections are built differently than basketball, because the data that
+        drives each sport is fundamentally different.
+      </p>
+      <div class="sport-grid">
+        <div class="sport-tag">🏀 NBA</div>
+        <div class="sport-tag">⚾ MLB</div>
+        <div class="sport-tag">🏒 NHL</div>
+        <div class="sport-tag">🏈 NFL</div>
+        <div class="sport-tag">🎓 NCAAB</div>
+        <div class="sport-tag">🏟️ NCAAF</div>
+        <div class="sport-tag">🥊 UFC</div>
+        <div class="sport-tag">⚽ Premier League</div>
+        <div class="sport-tag">🇲🇽 Liga MX</div>
+        <div class="sport-tag">🇪🇸 La Liga</div>
+      </div>
+    </section>
+
+    <!-- TRANSPARENCY -->
+    <section>
+      <h2>Transparency Is <span>the Product</span></h2>
+      <p>
+        Most platforms in this space hide their track records behind paywalls,
+        cherry-pick winning streaks, or sell "guaranteed" winners. We take the
+        opposite approach. Every projection we publish — win or lose — stays
+        visible on our results pages. The simulator's run line record (235–151
+        over the last 30 days), the AI model's moneyline projections (14–4 over
+        the last 30 days), the spread projections, the puck line calls — it's
+        all public, updated daily.
+      </p>
+      <p>
+        Why? Because our customers aren't looking for someone to blindly follow.
+        They're traders who want to incorporate quantitative inputs into their
+        own decision process. They want to know the model's long-term hit rate,
+        variance patterns, and sport-by-sport performance. That requires honest,
+        complete data — not a curated highlight reel.
+      </p>
+    </section>
+
+    <!-- VIDEO -->
+    <section>
+      <h2>See It in <span>Action</span></h2>
+      <p>15 seconds on what ATSwins actually does — and who it's built for.</p>
+      <div class="video-wrapper">
+        <video
+          controls
+          poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%2312121a' width='1280' height='720'/%3E%3Ctext fill='%238888a0' x='640' y='360' text-anchor='middle' font-family='system-ui' font-size='24'%3E▶ ATSwins Promo%3C/text%3E%3C/svg%3E"
+        >
+          <source
+            src="https://cdn.revid.ai/renders/XphW3xrmT9pjL74rUqiP/typeframes-XphW3xrmT9pjL74rUqiP-1782324726866.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Ready to Trade With <span>Better Information?</span></h2>
+      <p>
+        Join serious sports traders who use ATSwins to find mathematical edges
+        every day. No picks. No locks. Just data.
+      </p>
+      <a class="btn-primary" href="https://atswins.ai">Go to ATSwins →</a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        © 2026 ATSwins. Built for traders, not bettors. |
+        <a href="https://atswins.ai">atswins.ai</a>
+      </p>
+    </footer>
+  </body>
+</html>
